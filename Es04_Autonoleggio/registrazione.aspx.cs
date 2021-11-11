@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -19,6 +20,42 @@ namespace Es04_Autonoleggio
                 args.IsValid = true;
             else
                 args.IsValid = false;
+        }
+        protected void CustValDataNascita_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            try
+            {
+                DateTime d = Convert.ToDateTime(args.Value);
+                DateTime oggi = DateTime.Now;
+                if ((oggi.Year - d.Year) < 18)
+                    args.IsValid = false;
+                else
+                    args.IsValid = true;
+            }
+            catch (Exception)
+            {
+                args.IsValid = false;
+            }
+        }
+        protected void CustValMail_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            //Regex reg = new
+            //    Regex(@"\w+([-+.'!#$%&amp;*]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", RegexOptions.IgnoreCase);
+            //if (reg.IsMatch(args.Value))
+            //{
+            //    if (db.EmailPwdPresenti(txtEmail.Text) == 0)
+            //    {
+            //        args.IsValid = true;
+            //    }
+            //    else
+            //    {
+            //        args.IsValid = false;
+            //    }
+            //}
+            //else
+            //{
+            //    args.IsValid = false;
+            //}
         }
         protected void btnRegistrati_Click(object sender, EventArgs e)
         {
